@@ -28,7 +28,8 @@ for doc in source_file:
     try:
         doc_names.sort()
     except:
-        print('性質出問題')
+        print('性質沒有勾選')
+        break
     for doc_name in doc_names:
         try:
             print('處理', doc_name, '中', sep='')
@@ -37,11 +38,14 @@ for doc in source_file:
             error_list = list(data['歸檔編號'][data['性質'].isna()])
             print(*a, sep=', ', end=' ')
             print('沒有打勾')
+            break
         except:
             print('在', doc_name, '時遇到不明錯誤', sep='')
+            break
         else:
             #print(f)
             filter_data = filter_data.append(f)
+            #filter_data.sort_values(
             
 
         # 移除舊檔
@@ -55,6 +59,7 @@ for doc in source_file:
             print('建立',doc_name[:-2],'資料夾')
         except:
             print('不明錯誤')
+            break
         else:
             try:
                 os.chdir(path+roc_year+'年'+'/'+doc_name[:-2])
@@ -72,3 +77,4 @@ for doc in source_file:
         filter_data.to_excel(path + roc_year +'年/'+ doc_name[:-2] + '/' + name, index=False)
         print(doc_name+'已存檔完成')
         filter_data=pd.DataFrame()
+print('全部完成')
