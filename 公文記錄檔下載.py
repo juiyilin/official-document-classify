@@ -45,7 +45,10 @@ for doc in source_file:
         else:
             #print(f)
             filter_data = filter_data.append(f)
-            #filter_data.sort_values(
+            if filter_data['總收文號'].empty:
+                filter_data = filter_data.sort_values('歸檔編號')
+            else:
+                filter_data = filter_data.sort_values(['總收文號', '歸檔編號'])
             
 
         # 移除舊檔
